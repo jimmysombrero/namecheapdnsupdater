@@ -37,8 +37,6 @@ while true; do
   fi
 
   if [ "$CURRENTIP" != "$WANIP" ]; then
-	  echo "$CURRENTIP"
-	  echo "$WANIP"
     update_dyn_dns
   fi
 
