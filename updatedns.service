@@ -1,0 +1,15 @@
+[Unit]
+Description=Service to update dynamic DNS for Namecheap.
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/updatedns.sh
+WorkingDirectory=/tmp
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+Type=idle
+User=pi
+
+[Install]
+WantedBy=multi-user.target
