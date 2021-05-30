@@ -6,7 +6,7 @@ DOMAIN=""
 PASSWORD=""
 
 function update_dyn_dns() {
-  echo "Updating DNS Entry" | logger -p daemon.info
+  echo "Updating DNS Entry" | logger -i -p daemon.info
   
   BASERESULTXML=`curl -s "https://dynamicdns.park-your-domain.com/update?host=@&domain=$DOMAIN&password=$PASSWORD&ip=$CURRENTIP"`
   WWWRESULTXML=`curl -s "https://dynamicdns.park-your-domain.com/update?host=www&domain=$DOMAIN&password=$PASSWORD&ip=$CURRENTIP"`
@@ -16,13 +16,13 @@ function update_dyn_dns() {
 
   if [ "$BASEURLERRORCOUNT" > 0 ]; then
     DNSERROR=`echo "$BASERESULTXML" | xmlstarlet sel -t -m "//ResponseString" -v .`
-    echo "@ URL - $DNSERROR" | logger -p daemon.error
+    echo "@ URL - $DNSERROR" | logger -i -p daemon.error
   fi
 
 
   if [ "$WWWURLERRORCOUNT" > 0 ]; then
     DNSERROR=`echo "$WWWRESULTXML" | xmlstarlet sel -t -m "//ResponseString" -v .`
-    echo "WWW URL - $DNSERROR" | logger -p daemon.error
+    echo "WWW URL - $DNSERROR" | logger -i -p daemon.error
   fi
 }
 
